@@ -1,0 +1,3 @@
+@{
+    InputProperties = 'InputProperty'
+}
