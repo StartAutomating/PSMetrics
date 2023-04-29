@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-16"?>
+<!-- Generated with EZOut 1.9.9: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<Types>
+  <Type>
+    <Name>Metric</Name>
+    <Members>
+      <AliasProperty>
+        <Name>InputProperties</Name>
+        <ReferencedMemberName>InputProperty</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>InputProperty</Name>
+        <GetScriptBlock>
+                        $cmd = $this
+@(foreach ($parameterInfo in ([Management.Automation.CommandMetadata]$cmd).Parameters.Values) {
+    if ($parameterInfo.Attributes.ValueFromPipelineByPropertyName) {
+        $parameterInfo.Name        
+    }
+})
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>MetricName</Name>
+        <GetScriptBlock>
+                        $this.Name -replace '^Metric\.' -replace '\.metric\.ps1$' -replace '\.ps1$'
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
