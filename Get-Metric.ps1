@@ -3,9 +3,13 @@ function Get-Metric {
     .SYNOPSIS
         Gets Metrics
     .DESCRIPTION
-        Gets Metrics that can be Charted
+        Gets loaded Metrics.
+        
+        Metrics are defined in *.metric.ps1 files, and imported with Import-Metric
     .EXAMPLE
-        Get-ChartMetric
+        Get-Metric
+    .LINK
+        Import-Metric        
     #>
     param(
     [Parameter(ValueFromPipelineByPropertyName)]
