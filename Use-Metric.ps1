@@ -10,7 +10,7 @@ function Use-Metric {
     $Arguments
     )
     dynamicParam {
-        $metricMatcher = "(?<MetricName>\S+)(?<Suffix>(?>∑|📈|📉|📊|◕|◔|Chart|Metric|PSMetric))"
+        $metricMatcher = "(?<MetricName>\S+)(?<Suffix>(?>∑|📈|📉|📊|◕|◔|Chart|Metric|PSMetric))?"
         if ($MyInvocation.InvocationName -eq $MyInvocation.MyCommand.Name) { return }
         if ($myInvocation.InvocationName -notmatch $metricMatcher) { return }
         $metricMatch = @{} + $matches
@@ -88,6 +88,8 @@ function Use-Metric {
                 Get-Item $OutputPath
             }
             
+        } else {
+            $commandOutput
         }
     }
 }
