@@ -3,6 +3,121 @@
 <Configuration>
   <ViewDefinitions>
     <View>
+      <Name>Chart</Name>
+      <ViewSelectedBy>
+        <TypeName>Chart</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>
+    if (-not $global:ChartEngine) {
+        $global:ChartEngine = 'ChartJS'
+    }
+
+    $_ | 
+        Format-Custom -View $global:ChartEngine |
+        Out-String -Width 1mb
+</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>ChartJS</Name>
+      <ViewSelectedBy>
+        <TypeName>Chart</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>
+    
+    $chartInfo = $_
+    $ChartName = $_.MetricName
+    $chartLabels = @()
+    $chartData = @()    
+    foreach ($row in $chartInfo.ChartData) {
+        $firstProp, $secondProp, $rest = @($row.psobject.properties)
+        $chartLabels += $firstProp.Value
+        $chartData += $secondProp.value
+    }
+    $chartHTMLID = $ChartName -replace '[\s\p{P}\&lt;\&gt;]'
+    $chartType = if ($chartInfo.ChartType) {
+        $chartInfo.ChartType
+    } else {
+        'bar'
+    }
+    @"
+
+&lt;canvas id="$chartHTMLID"&gt;&lt;/canvas&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;  
+&lt;script&gt;
+const ctx = document.getElementById('$chartHTMLID');
+new Chart(ctx, {
+    type: '$chartType',
+    data: {
+    labels: $($chartLabels | ConvertTo-Json -Compress),
+    datasets: [{
+        label: '$ChartName',
+        data: $($chartData | ConvertTo-Json -Compress),
+        borderWidth: 1
+    }]
+    }
+});
+&lt;/script&gt;
+"@  
+    
+</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>PowerShellUniversal</Name>
+      <ViewSelectedBy>
+        <TypeName>Chart</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <ExpressionBinding>
+                <ScriptBlock>
+    $chartInfo = $_
+    $ChartName = $_.MetricName
+    $chartLabels = @()
+    $chartData = @()    
+    foreach ($row in $chartInfo.ChartData) {
+        $firstProp, $secondProp, $rest = @($row.psobject.properties)
+        break
+    }
+    $chartHTMLID = $ChartName -replace '[\s\p{P}\&lt;\&gt;]'
+    $chartType = if ($chartInfo.ChartType) {
+        $chartInfo.ChartType
+    } else {
+        'bar'
+    }
+
+    "New-UDChartJS -Data (
+        ConvertFrom-JSON '$((ConvertTo-Json -Compress -InputObject $chartInfo.ChartData) -replace "'","''")'
+    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'"
+</ScriptBlock>
+              </ExpressionBinding>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
       <Name>Metric</Name>
       <ViewSelectedBy>
         <TypeName>Metric</TypeName>
