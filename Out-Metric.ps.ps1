@@ -1,13 +1,31 @@
-function Use-Metric {
+function Out-Metric {
+    <#
+    .SYNOPSIS
+        Outputs Metrics
+    .DESCRIPTION
+        Outputs Metrics, given a pipeline of input.
+
+        This command is often called via a smart alias.
+
+        Each metric imported by Import-Metric will create several aliases to this command.
+    .LINK
+        Import-Metric
+    .LINK
+        Get-Metric
+    #>
     [CmdletBinding(PositionalBinding=$false)]
     param(
+    # A Pipeline of InputObjects
+    # This should be provided from the object pipeline.
     [vfp()]
     $InputObject,
 
-    [Parameter(Position=0)]
+    # The output path.  If provided will output the metric to this path.
+    [Parameter()]
     [string]
     $OutputPath,
 
+    # Any remaining arguments.  This parameter is here to provide open-ended input and customization.
     [Parameter(ValueFromRemainingArguments)]
     $Arguments
     )
@@ -32,12 +50,12 @@ function Use-Metric {
             } elseif ($metricMatch.Suffix -eq "📊") {
                 'BarChart'
             } 
-            elseif ($metricMatch.Suffix -eq '◕') {
+            elseif ($metricMatch.Suffix -eq '◔') {
                 'PieAscending'
             }
-            elseif ($metricMatch.Suffix -eq '◔') {
+            elseif ($metricMatch.Suffix -eq '◕') {
                 'PieDescending'
-            }
+            }            
             elseif ($metricMatch.Suffix -like '*Chart*') {
                 'Chart'
             } elseif ($metricMatch.Suffix -like '*Metric*') {
@@ -46,19 +64,24 @@ function Use-Metric {
     }
 
     begin {
+        # Prepare to accumulate pipeline input.
         $accumulateInput = [Collections.Queue]::new()
     }
 
     process {
+        # Accummulate what is piped in.        
         if ($InputObject) {
             $accumulateInput.Enqueue($InputObject)
         }        
     }
 
     end {
+        # If there was no metric command, return.
         return if -not $MetricCommand
+
+        # Pipe to our metric.  If this fails, let the errors bubble up.
         $metricOutput = @($accumulateInput.ToArray() | & $MetricCommand)
-        $commandOutput = 
+        $ViewOutput   = 
             if ($Intention -eq 'Metric') {
                 $metricOutput
             } else {
@@ -84,28 +107,38 @@ function Use-Metric {
                 Out-String -Width 1mb
             }
 
+        # If an -OutputPath was provided
         if ($OutputPath) {            
+            # try to find an exporter
             $exporter = $ExecutionContext.SessionState.InvokeCommand.GetCommand(
+                # (by looking for any Export-Command that shares a name with the extension)
                 "Export-$(@($OutputPath -split '\.')[-1])",
                 'Function,Alias,Cmdlet'
             )
+
+            # If an exporter was found
             if ($exporter) {
-                $metricOutput | & $exporter $OutputPath
+                # we can export the data by piping to the exporter
+                $metricOutput | 
+                    & $exporter $OutputPath
             } else {
-                $commandOutput | Set-Content $OutputPath
+                # Otherwise, we can use set-content to output the view.
+                $ViewOutput | Set-Content $OutputPath
             }
 
+            # If -OutputPath existed
             if (Test-Path $OutputPath) {
-                Get-Item $OutputPath
+                Get-Item $OutputPath # output the file
             }
             
         } else {
+            # If no intention can be inferred
             if (-not $Intention) {
-                $metricOutput
+                $metricOutput # output the data
             } else {
-                $commandOutput
-            }
-            
+                # otherwise, output the view
+                $ViewOutput
+            }            
         }
     }
 }

@@ -117,17 +117,18 @@ function Import-Metric
 
         return if -not $newMetrics
 
+        $AliasedTo = 'Out-Metric'
         # Otherwise, create many aliases for each metric
         $createAliases = 
         @(foreach ($newMetric in $newMetrics) {
             $metricSafeName = $newMetric -replace '\.metric\.ps1$'
-            "Set-Alias $metricSafeName Use-Metric"
-            "Set-Alias $metricSafeName📈 Use-Metric"
-            "Set-Alias $metricSafeName📉 Use-Metric"
-            "Set-Alias $metricSafeName📊 Use-Metric"            
-            "Set-Alias $metricSafeName◕ Use-Metric"
-            "Set-Alias $metricSafeName◔ Use-Metric"
-            "Set-Alias $metricSafeName∑ Use-Metric"           
+            "Set-Alias $metricSafeName $AliasedTo"
+            "Set-Alias $metricSafeName📈 $AliasedTo"
+            "Set-Alias $metricSafeName📉 $AliasedTo"
+            "Set-Alias $metricSafeName📊 $AliasedTo"            
+            "Set-Alias $metricSafeName◕ $AliasedTo"
+            "Set-Alias $metricSafeName◔ $AliasedTo"
+            "Set-Alias $metricSafeName∑ $AliasedTo"           
         }
         "Export-ModuleMember -Alias *"
         ) -join [Environment]::NewLine
