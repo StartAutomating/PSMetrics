@@ -55,7 +55,7 @@
         'bar'
     }
     @"
-&lt;div style='width:100%;height:100%'&gt;
+&lt;div style='width:100%;height:100%;text-align:center'&gt;
 &lt;div style='max-height:90%;margin-left:auto;margin-right:auto'&gt;
 &lt;canvas id="$chartHTMLID"&gt;&lt;/canvas&gt;
 &lt;/div&gt;
