@@ -14,7 +14,8 @@ function Use-Metric {
 
 
     dynamicParam {
-        $metricMatcher = "(?<MetricName>\S+)(?<Suffix>(?>∑|📈|📉|📊|◕|◔|Chart|Metric|PSMetric))?"
+        $suffixes = "(?>∑|📈|📉|📊|◕|◔|Chart|Metric|PSMetric)"
+        $metricMatcher = "(?<MetricName>(?:.|\s){0,}?(?=\z|\s|$suffixes)(?<Suffix>$suffixes)?"
         return if $MyInvocation.InvocationName -eq $MyInvocation.MyCommand.Name
         return if $myInvocation.InvocationName -notmatch $metricMatcher
         $metricMatch = @{} + $matches
