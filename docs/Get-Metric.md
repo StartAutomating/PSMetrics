@@ -47,6 +47,10 @@ Get-Metric
 ### Parameters
 #### **MetricName**
 
+The name of the metric.
+
+
+
 
 
 
