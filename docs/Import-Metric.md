@@ -46,12 +46,17 @@ Import-Metric -Path (Get-Module PSMetrics)
 ### Parameters
 #### **From**
 
+The source location of the metrics.
+This can be a string, file, directory, command, or module.
 
 
 
-|Type      |Required|Position|PipelineInput                 |Aliases                                                                        |
-|----------|--------|--------|------------------------------|-------------------------------------------------------------------------------|
-|`[Object]`|true    |1       |true (ByValue, ByPropertyName)|FromPath<br/>FromModule<br/>FromScript<br/>FromFunction<br/>FullName<br/>Source|
+
+
+
+|Type      |Required|Position|PipelineInput                 |Aliases                                                                                 |
+|----------|--------|--------|------------------------------|----------------------------------------------------------------------------------------|
+|`[Object]`|true    |1       |true (ByValue, ByPropertyName)|FromPath<br/>FromModule<br/>FromScript<br/>FromFunction<br/>FullName<br/>Path<br/>Source|
 
 
 
