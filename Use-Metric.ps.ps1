@@ -92,7 +92,7 @@ function Use-Metric {
             if ($exporter) {
                 $metricOutput | & $exporter $OutputPath
             } else {
-                $metricOutput | Set-Content $OutputPath
+                $commandOutput | Set-Content $OutputPath
             }
 
             if (Test-Path $OutputPath) {
