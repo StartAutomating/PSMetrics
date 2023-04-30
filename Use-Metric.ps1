@@ -90,7 +90,12 @@ function Use-Metric {
             }
             
         } else {
-            $commandOutput
+            if (-not $Intention) {
+                $metricOutput
+            } else {
+                $commandOutput
+            }
+            
         }
     }
 }
