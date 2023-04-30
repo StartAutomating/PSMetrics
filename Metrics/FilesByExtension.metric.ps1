@@ -6,7 +6,7 @@
 .LINK
     Import-Metric
 .EXAMPLE
-    
+    dir -File -Recurse | FilesByExtension
 #>
 param(
 [Parameter(ValueFromPipelineByPropertyName)]
