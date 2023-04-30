@@ -137,6 +137,7 @@ new Chart(ctx, {
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
+            <Wrap />
             <TableColumnItems>
               <TableColumnItem>
                 <PropertyName>MetricName</PropertyName>
