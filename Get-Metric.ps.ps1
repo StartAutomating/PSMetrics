@@ -13,6 +13,7 @@ function Get-Metric
         Import-Metric        
     #>
     param(
+    # The name of the metric.
     [vbn()]
     [Alias('Metric')]
     [string]
@@ -31,7 +32,7 @@ function Get-Metric
                 $script:ChartMetrics[$MetricName]
             } else {
                 :LookForMetric foreach ($metricInfo in $script:ChartMetrics.Values) {
-                    break LookForMetric if (($metricInfo.Name -replace '\.metric\.ps1$') -eq $MetricName) {
+                    break LookForMetric if (metricInfo.MetricName -eq $MetricName) {
                         $metricInfo
                     }
                 }
