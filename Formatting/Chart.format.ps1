@@ -26,7 +26,7 @@ Write-FormatView -TypeName Chart -Name ChartJS -Action {
         'bar'
     }
     @"
-<div style='width:100%'>
+<div style='width:100%;height:100%'>
 <div style='max-height:90%;margin-left:auto;margin-right:auto'>
 <canvas id="$chartHTMLID"></canvas>
 </div>
