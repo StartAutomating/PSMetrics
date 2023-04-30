@@ -55,8 +55,9 @@
         'bar'
     }
     @"
-
+&lt;div style='max-height:90%'&gt;
 &lt;canvas id="$chartHTMLID"&gt;&lt;/canvas&gt;
+&lt;/div&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;  
 &lt;script&gt;
 const ctx = document.getElementById('$chartHTMLID');
