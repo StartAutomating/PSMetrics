@@ -12,6 +12,7 @@ function Get-Metric {
         Import-Metric        
     #>
     param(
+    # The name of the metric.
     [Parameter(ValueFromPipelineByPropertyName)]
     [Alias('Metric')]
     [string]
@@ -28,7 +29,7 @@ function Get-Metric {
                 $script:ChartMetrics[$MetricName]
             } else {
                 :LookForMetric foreach ($metricInfo in $script:ChartMetrics.Values) {
-                    if (($metricInfo.Name -replace '\.metric\.ps1$') -eq $MetricName) { 
+                    if (metricInfo.MetricName -eq $MetricName) { 
                                 $metricInfo;break LookForMetric                        
                             } 
                 }
