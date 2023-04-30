@@ -79,14 +79,13 @@ function Import-Metric {
         $createAliases = 
         @(foreach ($newMetric in $newMetrics) {
             $metricSafeName = $newMetric -replace '\.metric\.ps1$'
+            "Set-Alias $metricSafeName Use-Metric"
             "Set-Alias $metricSafeName📈 Use-Metric"
             "Set-Alias $metricSafeName📉 Use-Metric"
             "Set-Alias $metricSafeName📊 Use-Metric"            
             "Set-Alias $metricSafeName◕ Use-Metric"
             "Set-Alias $metricSafeName◔ Use-Metric"
-            "Set-Alias $metricSafeName∑ Use-Metric"
-            "Set-Alias Chart.$metricSafeName Use-Metric"
-            "Set-Alias Metric.$metricSafeName Use-Metric"            
+            "Set-Alias $metricSafeName∑ Use-Metric"            
         }
         "Export-ModuleMember -Alias *"
         ) -join [Environment]::NewLine
