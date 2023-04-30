@@ -55,8 +55,10 @@
         'bar'
     }
     @"
+&lt;div style='width:100%'&gt;
 &lt;div style='max-height:90%;margin-left:auto;margin-right:auto'&gt;
 &lt;canvas id="$chartHTMLID"&gt;&lt;/canvas&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;  
 &lt;script&gt;
