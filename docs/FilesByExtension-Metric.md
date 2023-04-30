@@ -33,6 +33,9 @@ Gets the number of files of each extension.
 
 ### Examples
 #### EXAMPLE 1
+```PowerShell
+dir -File -Recurse | FilesByExtension
+```
 
 
 
