@@ -32,7 +32,7 @@ function Get-Metric
                 $script:ChartMetrics[$MetricName]
             } else {
                 :LookForMetric foreach ($metricInfo in $script:ChartMetrics.Values) {
-                    break LookForMetric if (metricInfo.MetricName -eq $MetricName) {
+                    break LookForMetric if ($metricInfo.MetricName -eq $MetricName) {
                         $metricInfo
                     }
                 }
