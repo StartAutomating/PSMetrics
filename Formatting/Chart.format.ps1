@@ -26,8 +26,10 @@ Write-FormatView -TypeName Chart -Name ChartJS -Action {
         'bar'
     }
     @"
+<div style='width:100%'>
 <div style='max-height:90%;margin-left:auto;margin-right:auto'>
 <canvas id="$chartHTMLID"></canvas>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
 <script>
