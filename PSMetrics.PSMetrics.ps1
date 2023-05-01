@@ -4,8 +4,8 @@ $psMetricsFiles = Get-Module PSMetrics |
     Split-Path |
     Get-ChildItem -File
 
-$psMetricsCommands = 
-    Get-Command -Module PSMetrics -CommandType All
+$psMetricsFunctions = 
+    Get-Command -Module PSMetrics -CommandType Function
 
 $docsRoot  = Join-Path $env:GITHUB_WORKSPACE "docs"
 
@@ -14,6 +14,6 @@ $psMetricsFiles | FilesByExtension◔ -OutputPath (
     Join-Path $docsRoot "PSMetrics-FilesByExtension.html"
 )
 
-$psMetricsCommands | CommandsByVerb◔ -OutputPath (
+$psMetricsFunctions | CommandsByVerb◔ -OutputPath (
     Join-Path $docsRoot "PSMetrics-CommandsByVerb.html"
 )
