@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 1920 1080" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="psChevron" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="40,20 45,20 60,50 35,80 32.5,80 55,50" />
+  </symbol>
+  <defs>
+    <style type="text/css">@import url('https://fonts.googleapis.com/css?family=Montserrat')</style>
+  </defs>
+  <text style="font-family: 'Montserrat', sans-serif" x="50%" y="50%" text-anchor="middle" alignment-baseline="middle" dominant-baseline="middle" font-size="15em" fill="#4488ff" class="foreground-fill">PSMetrics</text>
+  <use href="#psChevron" fill="#4488ff" height="7.5%" x="-26.5%" y="42%" />
+</svg>
