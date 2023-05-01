@@ -9,4 +9,4 @@
     . $file.FullName
 }
 
-Import-Metric -From $PSScriptRoot
+Import-Metric -From $MyInvocation.MyCommand.ScriptBlock.Module
