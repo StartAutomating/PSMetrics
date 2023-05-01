@@ -84,6 +84,22 @@ Any remaining arguments.  This parameter is here to provide open-ended input and
 
 
 
+#### **View**
+
+The name of the view to use.
+Different views can make metrics render different ways.
+
+
+
+
+
+
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[String]`|false   |named   |false        |
+
+
+
 
 
 ---
@@ -91,5 +107,5 @@ Any remaining arguments.  This parameter is here to provide open-ended input and
 
 ### Syntax
 ```PowerShell
-Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [<CommonParameters>]
+Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [<CommonParameters>]
 ```
