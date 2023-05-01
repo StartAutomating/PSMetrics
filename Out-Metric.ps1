@@ -17,13 +17,16 @@ function Out-Metric {
     # This should be provided from the object pipeline.
     [Parameter(ValueFromPipeline)]
     $InputObject,
-    # The output path.  If provided will output the metric to this path.
-    [Parameter()]
+    # The output path.  If provided will output the metric to this path.    
     [string]
     $OutputPath,
     # Any remaining arguments.  This parameter is here to provide open-ended input and customization.
     [Parameter(ValueFromRemainingArguments)]
-    $Arguments
+    $Arguments,
+    # The name of the view to use.
+    # Different views can make metrics render different ways.
+    [string]
+    $View
     )
     dynamicParam {
         $suffixes = "(?>∑|📈|📉|📊|◕|◔|Chart|Metric|PSMetric)"
@@ -69,9 +72,13 @@ function Out-Metric {
         # If there was no metric command, return.
         if (-not $MetricCommand) { return }
         # Pipe to our metric.  If this fails, let the errors bubble up.
-        $metricOutput = @($accumulateInput.ToArray() | & $MetricCommand)
-        $ViewOutput   = 
-            if ($Intention -eq 'Metric') {
+        $metricOutput     = @($accumulateInput.ToArray() | & $MetricCommand)
+        $formatParameters = @{}
+        if ($view) {
+            $formatParameters["View"] = $view
+        }
+        $ViewOutput   =
+            if ($Intention -eq 'Metric' -and -not $view) {
                 $metricOutput
             } else {
                 if ($Intention -like '*Descending*') {
@@ -91,8 +98,9 @@ function Out-Metric {
                         ''
                     }
                     MetricCommand  = $MetricCommand
-                    MetricName     = $MetricCommand.Name -replace '\.metric\.ps1$'
+                    MetricName     = $MetricCommand.MetricName
                 } |
+                Format-Custom @formatParameters |
                 Out-String -Width 1mb
             }
         # If an -OutputPath was provided
