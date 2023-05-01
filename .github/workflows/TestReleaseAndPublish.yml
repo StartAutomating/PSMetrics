@@ -590,10 +590,6 @@ jobs:
         uses: StartAutomating/EZOut@master
       - name: UseHelpOut
         uses: StartAutomating/HelpOut@master
-      - name: Run PSMetrics (from main)
-        if: ${{github.ref_name == 'main'}}
-        uses: StartAutomating/PSMetrics@main
-        id: PSMetricsMain
       - name: Run PSMetrics (on branch)
         if: ${{github.ref_name != 'main'}}
         uses: ./
