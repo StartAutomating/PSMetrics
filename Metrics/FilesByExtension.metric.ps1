@@ -26,7 +26,7 @@ end {
     foreach ($sorted in $ExtensionsFound.GetEnumerator() | Sort-Object Value -Descending) {
         [PSCustomObject][Ordered]@{
             Extension = $sorted.Key
-            FileCount = $sorted.Value
+            Count = $sorted.Value
         }
     }
 }
