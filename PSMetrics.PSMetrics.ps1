@@ -14,6 +14,10 @@ $psMetricsFiles | FilesByExtension◔ -OutputPath (
     Join-Path $docsRoot "PSMetrics-FilesByExtension.html"
 )
 
+$psMetricsFiles | FileSizeByExtension◔ -OutputPath (
+    Join-Path $docsRoot "PSMetrics-FileSizeByExtension.html"
+)
+
 $psMetricsFunctions | CommandsByVerb◔ -OutputPath (
     Join-Path $docsRoot "PSMetrics-CommandsByVerb.html"
 )
