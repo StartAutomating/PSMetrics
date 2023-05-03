@@ -45,7 +45,15 @@ function Import-Metric {
             $script:ChartMetrics = [Ordered]@{}
         }
         $newMetrics = @()
-        $MetricPattern = '(?>^Metric\p{P}|\p{P}Metric$|\p{P}Metric\.ps1)'
+        $MetricPattern = '@/
+        (?>
+            ^Metric\p{P}
+            |
+            [\p{P}-[-]]Metric$
+            |
+            \p{P}Metric\.ps1
+        )
+        /@'
     }
     process {
         # Since -From can be many things, but a metric has to be a command,
@@ -57,7 +65,7 @@ function Import-Metric {
             :ResolveFromString do {
                 foreach ($loadedModule in @(Get-Module)) {
                     # If we find the module, don't try to resolve -From as a path
-                    if ($loadedModule.Name -eq $from -and $loadedModule.Path) { 
+                    if ($loadedModule.Name -eq $from) { 
                                 $from = $fromModule = $loadedModule # (just set -From again and let the function continue);break ResolveFromString                        
                             }
                         
