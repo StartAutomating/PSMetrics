@@ -4,7 +4,7 @@
 .DESCRIPTION
     Commands by the command's Noun
 .EXAMPLE
-    
+    Get-Command -Module PSMetric -CommandType Function | CommandsByNoun
 #>
 param(
 [Parameter(ValueFromPipelineByPropertyName)]
@@ -13,7 +13,7 @@ $Noun
 )
 
 begin {
-    $Nouns = @{}    
+    $Nouns = [Ordered]@{}    
 }
 
 process {

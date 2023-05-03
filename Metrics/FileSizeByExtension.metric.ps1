@@ -15,7 +15,7 @@ $Length
 )
 
 begin {
-    $ExtensionsFound = @{}    
+    $ExtensionsFound = [Ordered]@{}    
 }
 
 process {
