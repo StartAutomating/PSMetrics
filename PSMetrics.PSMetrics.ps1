@@ -2,7 +2,7 @@
 
 $psMetricsFiles = Get-Module PSMetrics |
     Split-Path |
-    Get-ChildItem -File
+    Get-ChildItem -File -Recurse
 
 $psMetricsFunctions = 
     Get-Command -Module PSMetrics -CommandType Function
