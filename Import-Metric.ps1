@@ -66,7 +66,8 @@ function Import-Metric {
                 foreach ($loadedModule in @(Get-Module)) {
                     # If we find the module, don't try to resolve -From as a path
                     if ($loadedModule.Name -eq $from) { 
-                                $from = $fromModule = $loadedModule # (just set -From again and let the function continue);break ResolveFromString                        
+                                # (just set -From again and let the function continue)
+                                                $from = $fromModule = $loadedModule;break ResolveFromString                        
                             }
                         
                 }
