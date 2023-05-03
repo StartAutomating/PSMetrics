@@ -16,6 +16,10 @@ describe PSMetrics {
             Should -Be .ps1
     }
 
+    it 'Can import metrics' {
+        Import-Metric -From PSMetrics
+    }
+
     context 'Graphs' {
         it 'Can show a metric as a 📈 graph' {
             Get-Module PSMetrics | 
@@ -40,6 +44,15 @@ describe PSMetrics {
                 FilesByExtension◔ |
                 Should -BeLike '*<*>*pie*'
 
-        }        
+        }
+        
+        it 'Can save a graph to disk' {
+            Get-Module PSMetrics |
+                Split-Path |
+                Get-ChildItem -File -Recurse |
+                FilesByExtension◔ -OutputPath .\test.html | 
+                Get-Content -Raw |
+                Should -BeLike '*<*>*pie*'
+        }
     }        
 }
