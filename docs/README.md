@@ -55,3 +55,9 @@ PSMetrics comes with a few example metrics you can use out of the box.
 |FilesByExtension   |Gets files by extension|
 |FileSizeByExtension|File Size By Extension |
 |PipeScriptFactor   |PipeScript Factor      |
+
+
+
+## Tools that use PSMetrics
+
+[GitLogger](https://gitlogger.com/GitLogger-Metrics/) uses PSMetrics to standardize the data you can visualize from a repository.
