@@ -23,6 +23,9 @@ Commands by the command's Noun
 
 ### Examples
 #### EXAMPLE 1
+```PowerShell
+Get-Command -Module PSMetric -CommandType Function | CommandsByNoun
+```
 
 
 
