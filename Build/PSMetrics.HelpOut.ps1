@@ -1,5 +1,5 @@
 #requires -Module HelpOut
-Push-Location $PSScriptRoot
+Push-Location ($PSScriptRoot | Split-Path)
 
 Import-Module .\PSMetrics.psd1
 
