@@ -54,3 +54,4 @@ PSMetrics comes with a few example metrics you can use out of the box.
 |CommandsByVerb     |Commands By Verb       |
 |FilesByExtension   |Gets files by extension|
 |FileSizeByExtension|File Size By Extension |
+|PipeScriptFactor   |PipeScript Factor      |
