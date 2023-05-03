@@ -131,6 +131,22 @@ If provided, will render a chart of a particular type.
 
 
 
+#### **Metadata**
+
+Any metadata related to the metric.
+This will add a YAML header to HTML metrics
+
+
+
+
+
+
+|Type           |Required|Position|PipelineInput|
+|---------------|--------|--------|-------------|
+|`[IDictionary]`|false   |named   |false        |
+
+
+
 
 
 ---
@@ -138,5 +154,5 @@ If provided, will render a chart of a particular type.
 
 ### Syntax
 ```PowerShell
-Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [<CommonParameters>]
+Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [-Metadata <IDictionary>] [<CommonParameters>]
 ```
