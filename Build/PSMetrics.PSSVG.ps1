@@ -4,7 +4,7 @@
 Push-Location ($psScriptRoot | Split-Path)
 $psChevron = Invoke-RestMethod https://pssvg.start-automating.com/Examples/PowerShellChevron.svg
 
-$assetsPath = Join-Path $psScriptRoot Assets
+$assetsPath = Join-Path $pwd Assets
 if (-not (Test-Path $assetsPath)) {
     $null = New-Item -ItemType Directory -Path $assetsPath
 }
