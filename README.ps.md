@@ -47,7 +47,7 @@ Any files you output from the action will be checked into your repo (please make
 PSMetrics comes with a few example metrics you can use out of the box.
 
 ~~~PipeScript {
-    @{
+    [PSCustomObject]@{
         Table = Get-Metric | Select MetricName, Synopsis
     }
 }
