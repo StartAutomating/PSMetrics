@@ -100,6 +100,37 @@ Different views can make metrics render different ways.
 
 
 
+#### **Descending**
+
+If set, will flip the order of any outputted metric data.
+Metrics should output their data sorted by default, and thus, this should make any metric sorted the opposite of a default order.
+
+
+
+
+
+
+|Type      |Required|Position|PipelineInput|Aliases|
+|----------|--------|--------|-------------|-------|
+|`[Switch]`|false   |named   |false        |Reverse|
+
+
+
+#### **ChartType**
+
+If provided, will render a chart of a particular type.
+
+
+
+
+
+
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[String]`|false   |named   |false        |
+
+
+
 
 
 ---
@@ -107,5 +138,5 @@ Different views can make metrics render different ways.
 
 ### Syntax
 ```PowerShell
-Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [<CommonParameters>]
+Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [<CommonParameters>]
 ```
