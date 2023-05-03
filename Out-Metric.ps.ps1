@@ -41,7 +41,12 @@ function Out-Metric {
 
     # If provided, will render a chart of a particular type.
     [string]
-    $ChartType
+    $ChartType,
+
+    # Any metadata related to the metric.
+    # This will add a YAML header to HTML metrics
+    [Collections.IDictionary]
+    $Metadata = [Ordered]@{}
     )
 
 
@@ -123,6 +128,7 @@ function Out-Metric {
                     }
                     MetricCommand  = $MetricCommand
                     MetricName     = $MetricCommand.MetricName
+                    Metadata       = $Metadata
                 } |
                 Format-Custom @formatParameters |
                 Out-String -Width 1mb

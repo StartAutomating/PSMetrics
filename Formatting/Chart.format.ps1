@@ -26,6 +26,19 @@ Write-FormatView -TypeName Chart -Name ChartJS -Action {
         'bar'
     }
     @"
+$(
+if ($chartInfo.Metadata.Count) {
+@(
+"---"
+foreach ($kv in $chartInfo.Metadata.GetEnumerator()) {
+    "$($kv.Key): $(if ($kv.Value -is [string] -or $kv.Value.GetType().IsPrimitive) {
+        $kv.Value
+    } else {ConvertTo-Json $kv.Value -Compress})"
+}
+"---"
+) -join [Environment]::NewLine
+}
+)
 <div style='width:100%;height:100%;text-align:center;justify-content:center'>
 <div style='max-height:90%;display:flex;margin-left:auto;margin-right:auto;text-align:center;justify-content:center'>
 <canvas id="$chartHTMLID"></canvas>
