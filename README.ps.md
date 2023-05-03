@@ -11,7 +11,7 @@ Once we've described a metric, it's easy to calculate it from any appropriate in
 
 Once we've calculated a metric, it's easy to format that metric any way we'd like.
 
-PSMetrics includes formatters for ChartJS and PowerShell Universal.
+PSMetrics includes formatters for [ChartJS](https://chartjs.org) and [PowerShell Universal](https://ironmansoftware.com/powershell-universal-dashboard)
 
 ## Using PSMetrics
 
