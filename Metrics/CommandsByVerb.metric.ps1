@@ -13,7 +13,7 @@ $Verb
 )
 
 begin {
-    $verbs = @{}    
+    $verbs = [Ordered]@{}    
 }
 
 process {

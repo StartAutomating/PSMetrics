@@ -13,7 +13,7 @@ $CommandType
 )
 
 begin {
-    $CommandTypes = @{}    
+    $CommandTypes = [Ordered]@{}    
 }
 
 process {
