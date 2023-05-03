@@ -47,9 +47,13 @@ Any files you output from the action will be checked into your repo (please make
 PSMetrics comes with a few example metrics you can use out of the box.
 
 
-|Table|
-|-----|
-||
+|MetricName         |Synopsis               |
+|-------------------|-----------------------|
+|CommandsByNoun     |Commands By Noun       |
+|CommandsByType     |Commands By Type       |
+|CommandsByVerb     |Commands By Verb       |
+|FilesByExtension   |Gets files by extension|
+|FileSizeByExtension|File Size By Extension |
 
 
 
