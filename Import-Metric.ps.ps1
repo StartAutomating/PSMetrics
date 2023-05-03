@@ -41,7 +41,15 @@ function Import-Metric
         }
 
         $newMetrics = @()
-        $MetricPattern = '(?>^Metric\p{P}|\p{P}Metric$|\p{P}Metric\.ps1)'
+        $MetricPattern = '@/
+        (?>
+            ^Metric\p{P}
+            |
+            [\p{P}-[-]]Metric$
+            |
+            \p{P}Metric\.ps1
+        )
+        /@'
     }
 
     process {
@@ -56,7 +64,7 @@ function Import-Metric
                 foreach ($loadedModule in @(Get-Module)) {
                     # If we find the module, don't try to resolve -From as a path
                     break ResolveFromString
-                        if ($loadedModule.Name -eq $from -and $loadedModule.Path) {
+                        if ($loadedModule.Name -eq $from) {
                             $from = $fromModule = $loadedModule # (just set -From again and let the function continue)
                         }
                 }
