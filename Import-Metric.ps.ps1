@@ -65,7 +65,8 @@ function Import-Metric
                     # If we find the module, don't try to resolve -From as a path
                     break ResolveFromString
                         if ($loadedModule.Name -eq $from) {
-                            $from = $fromModule = $loadedModule # (just set -From again and let the function continue)
+                             # (just set -From again and let the function continue)
+                            $from = $fromModule = $loadedModule
                         }
                 }
                 # If we think from was a path
