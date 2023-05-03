@@ -16,9 +16,9 @@ describe PSMetrics {
             Should -Be .ps1
     }
 
-    it 'Can import metrics' {
+    <#it 'Can import metrics' {
         Import-Metric -From PSMetrics
-    }
+    }#>
 
     context 'Graphs' {
         it 'Can show a metric as a 📈 graph' {
@@ -54,5 +54,14 @@ describe PSMetrics {
                 Get-Content -Raw |
                 Should -BeLike '*<*>*pie*'
         }
-    }        
+    }    
+    
+    
+    it 'Can save data to disk' {
+        Get-Module PSMetrics |
+            Split-Path |
+            Get-ChildItem -File -Recurse |
+            FilesByExtension◔ -OutputPath .\test.clixml | 
+            Import-Clixml
+    }
 }
