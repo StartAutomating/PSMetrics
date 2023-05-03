@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-16"?>
+<!-- Generated with EZOut 1.9.9: Install-Module EZOut or https://github.com/StartAutomating/EZOut -->
+<Types>
+  <Type>
+    <Name>Metric</Name>
+    <Members>
+      <AliasProperty>
+        <Name>InputProperties</Name>
+        <ReferencedMemberName>InputProperty</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptMethod>
+        <Name>GetHelpField</Name>
+        <Script>
+                        param([Parameter(Mandatory)]$Field)
+$fieldNames = 'synopsis','description','link','example','inputs', 'outputs', 'parameter', 'notes'
+foreach ($block in $this.BlockComments) {                
+    foreach ($match in [Regex]::new("
+        \.(?&lt;Field&gt;$Field)                   # Field Start
+        [\s-[\r\n]]{0,}                      # Optional Whitespace
+        [\r\n]+                              # newline
+        (?&lt;Content&gt;(?:.|\s)+?(?=
+        (
+            [\r\n]{0,}\s{0,}\.(?&gt;$($fieldNames -join '|'))|
+            \#\&gt;|
+            \z
+        ))) # Anything until the next .field or end of the comment block
+        ", 'IgnoreCase,IgnorePatternWhitespace', [Timespan]::FromSeconds(1)).Matches(
+            $block.Value
+        )) {                        
+        $match.Groups["Content"].Value -replace '[\s\r\n]+$'
+    }
+}
+                    </Script>
+      </ScriptMethod>
+      <ScriptProperty>
+        <Name>BlockComments</Name>
+        <GetScriptBlock>
+                        if (-not $this.ScriptBlock) {
+    return @()
+}
+
+@([Regex]::New("
+\&lt;\# # The opening tag
+(?&lt;Block&gt;
+    (?:.|\s)+?(?=\z|\#&gt;) # anything until the closing tag
+)
+\#\&gt; # the closing tag
+", 'IgnoreCase,IgnorePatternWhitespace', '00:00:01').Matches($this.ScriptBlock)) -as [Text.RegularExpressions.Match[]]
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>InputProperty</Name>
+        <GetScriptBlock>
+                        $cmd = $this
+@(foreach ($parameterInfo in ([Management.Automation.CommandMetadata]$cmd).Parameters.Values) {
+    if ($parameterInfo.Attributes.ValueFromPipelineByPropertyName) {
+        $parameterInfo.Name        
+    }
+})
+
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>MetricName</Name>
+        <GetScriptBlock>
+                        $this.Name -replace '^Metric\.' -replace '\.metric\.ps1$' -replace '\.ps1$'
+                    </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>Synopsis</Name>
+        <GetScriptBlock>
+                        @($this.GetHelpField("Synopsis"))[0] -replace '^\s+'
+                    </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

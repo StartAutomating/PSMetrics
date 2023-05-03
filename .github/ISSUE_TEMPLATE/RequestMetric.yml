@@ -1,0 +1,38 @@
+name: Request Metric
+description: Request a new metric
+title: "[Metric]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please provide some more info about the metric
+  - type: input
+    id: Synopsis
+    attributes:
+      label: Synopsis
+      description: A synopsis of the metric.
+    validations:
+      required: true
+  - type: textarea
+    id: Description
+    attributes:
+      label: Description
+      description: A description of the metric.      
+    validations:
+      required: false  
+  - type: textarea
+    id: Example
+    attributes:
+      label: Example
+      description: An example of using the metric
+      render: PowerShell
+    validations:
+      required: false
+  - type: textarea
+    id: Links
+    attributes:
+      label: Links
+      description: Any related links.
+    validations:
+      required: false

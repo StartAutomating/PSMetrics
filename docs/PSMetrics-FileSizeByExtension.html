@@ -1,0 +1,27 @@
+
+
+
+<div style='width:100%;height:100%;text-align:center;justify-content:center'>
+<div style='max-height:90%;display:flex;margin-left:auto;margin-right:auto;text-align:center;justify-content:center'>
+<canvas id="FileSizeByExtension"></canvas>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+<script>
+const ctx = document.getElementById('FileSizeByExtension');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+    labels: [".png",".ps1",".md",".yml",".ps1xml",".html",".svg",".psd1","",".psm1"],
+    datasets: [{
+        label: 'FileSizeByExtension',
+        data: [98688,46185,17097,12523,7605,2516,2181,1779,1071,532],
+        borderWidth: 1
+    }]
+    }
+});
+</script>
+
+
+
+

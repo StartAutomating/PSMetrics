@@ -1,0 +1,1 @@
+$this.Name -replace '^Metric\.' -replace '\.metric\.ps1$' -replace '\.ps1$'
