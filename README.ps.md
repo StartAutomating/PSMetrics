@@ -53,3 +53,7 @@ PSMetrics comes with a few example metrics you can use out of the box.
     }
 }
 ~~~
+
+## Tools that use PSMetrics
+
+[GitLogger](https://gitlogger.com/GitLogger-Metrics/) uses PSMetrics to standardize the data you can visualize from a repository.
