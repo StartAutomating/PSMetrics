@@ -16,7 +16,6 @@
             uses = 'StartAutomating/PSSVG@main'
             id = 'PSSVG'
         },
-        'RunPiecemeal',
         'RunPipeScript',
         'RunEZOut',
         'RunHelpOut',        

@@ -582,8 +582,6 @@ jobs:
       - name: Use PSSVG Action
         uses: StartAutomating/PSSVG@main
         id: PSSVG
-      - name: UsePiecemeal
-        uses: StartAutomating/Piecemeal@main
       - name: BuildPipeScript
         uses: StartAutomating/PipeScript@main
       - name: UseEZOut
