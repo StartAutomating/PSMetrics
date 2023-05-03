@@ -1,5 +1,5 @@
 <div align='center'>
-<img src='assets/PSMetrics.png' alt='PSMetrics' />
+<img src='Assets/PSMetrics.png' alt='PSMetrics' />
 </div>
 
 
