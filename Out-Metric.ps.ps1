@@ -31,7 +31,17 @@ function Out-Metric {
     # The name of the view to use.
     # Different views can make metrics render different ways.
     [string]
-    $View
+    $View,
+
+    # If set, will flip the order of any outputted metric data.
+    # Metrics should output their data sorted by default, and thus, this should make any metric sorted the opposite of a default order.
+    [Alias('Reverse')]
+    [switch]
+    $Descending,
+
+    # If provided, will render a chart of a particular type.
+    [string]
+    $ChartType
     )
 
 
@@ -90,17 +100,19 @@ function Out-Metric {
             $formatParameters["View"] = $view
         }
         $ViewOutput   =
-            if ($Intention -eq 'Metric' -and -not $view) {
+            if ($Intention -eq 'Metric' -and -not $view -and -not $ChartType) {
                 $metricOutput
             } else {
-                if ($Intention -like '*Descending*') {
+                if ($Intention -like '*Descending*' -or $Descending) {
                     [Array]::Reverse($metricOutput)
                 }
                 
                 [PSCustomObject][Ordered]@{
                     PSTypeName     = 'Chart'
                     ChartData      = $metricOutput
-                    ChartType      = if ($Intention -match 'Line') {
+                    ChartType      = if ($chartType) {
+                        $chartType
+                    } elseif ($Intention -match 'Line') {
                         'line'
                     } elseif ($Intention -match 'Bar') {
                         'bar'
