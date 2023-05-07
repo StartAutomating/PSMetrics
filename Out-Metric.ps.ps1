@@ -43,6 +43,16 @@ function Out-Metric {
     [string]
     $ChartType,
 
+    # The background colors for the chart
+    [Alias('Color','BackgroundColors')]
+    [string[]]
+    $BackgroundColor,
+
+    # The border colors for the chart
+    [Alias('BorderColors')]
+    [string[]]
+    $BorderColor,
+
     # Any metadata related to the metric.
     # This will add a YAML header to HTML metrics
     [Collections.IDictionary]
@@ -117,22 +127,24 @@ function Out-Metric {
                 }
                 
                 [PSCustomObject][Ordered]@{
-                    PSTypeName     = 'Chart'
-                    ChartData      = $metricOutput
-                    ChartType      = if ($chartType) {
-                        $chartType
-                    } elseif ($Intention -match 'Line') {
-                        'line'
-                    } elseif ($Intention -match 'Bar') {
-                        'bar'
-                    } elseif ($Intention -match 'Pie') {
-                        'pie'
-                    } else {
-                        ''
-                    }
-                    MetricCommand  = $MetricCommand
-                    MetricName     = $MetricCommand.MetricName
-                    Metadata       = $Metadata
+                    PSTypeName      = 'Chart'
+                    ChartData       = $metricOutput
+                    ChartType       =   if ($chartType) {
+                                            $chartType
+                                        } elseif ($Intention -match 'Line') {
+                                            'line'
+                                        } elseif ($Intention -match 'Bar') {
+                                            'bar'
+                                        } elseif ($Intention -match 'Pie') {
+                                            'pie'
+                                        } else {
+                                            ''
+                                        }
+                    MetricCommand   = $MetricCommand
+                    MetricName      = $MetricCommand.MetricName
+                    BackgroundColor = $BackgroundColor
+                    BorderColor     = $BorderColor
+                    Metadata        = $Metadata
                 } |
                 Format-Custom @formatParameters |
                 Out-String -Width 1mb
