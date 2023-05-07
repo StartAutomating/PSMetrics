@@ -112,12 +112,7 @@ function Out-Metric {
                     $metricOutput = $metricOutput[(0+$PSBoundParameters['Skip'])..($metricOutput.Length - 1)]
                 }
                 if ($PSBoundParameters['First']) {
-                    if ($PSBoundParameters['First'] -gt 0) {
-                        $metricOutput = $metricOutput[0..$($PSBoundParameters['First'] -1)]
-                    } else {
-                        $metricOutput = $metricOutput[$PSBoundParameters['First']]
-                    }
-                    
+                    $metricOutput = $metricOutput[0..$($PSBoundParameters['First'] -1)]
                 }
                 
                 [PSCustomObject][Ordered]@{
