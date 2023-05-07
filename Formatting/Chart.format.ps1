@@ -54,6 +54,12 @@ new Chart(ctx, {
     datasets: [{
         label: '$ChartName',
         data: $($chartData | ConvertTo-Json -Compress),
+        $(if ($chartInfo.BackgroundColor) {
+            "backgroundColor: $(ConvertTo-Json @($chartInfo.BackgroundColor))," + [Environment]::NewLine
+        })
+        $(if ($chartInfo.BorderColor) {
+            "borderColor: $(ConvertTo-Json @($chartInfo.BorderColor))," + [Environment]::NewLine
+        })
         borderWidth: 1
     }]
     }
@@ -81,5 +87,10 @@ Write-FormatView -TypeName Chart -Name PowerShellUniversal -Action {
 
     "{New-UDChartJS -Data (
         ConvertFrom-JSON '$((ConvertTo-Json -Compress -InputObject $chartInfo.ChartData) -replace "'","''")'
-    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'}"
+    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'$(
+if ($chartInfo.BackgroundColor) { "-BackgroundColor '$($chartInfo.BackgroundColor -join "','")'"}
+)
+$(
+if ($chartInfo.BorderColor) { "-BackgroundColor '$($chartInfo.BorderColor -join "','")'"}
+)}"
 }
