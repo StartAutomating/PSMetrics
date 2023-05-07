@@ -177,6 +177,39 @@ This will add a YAML header to HTML metrics
 
 
 
+#### **IncludeTotalCount**
+
+
+
+
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[Switch]`|false   |named   |false        |
+
+
+
+#### **Skip**
+
+
+
+
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[UInt64]`|false   |named   |false        |
+
+
+
+#### **First**
+
+
+
+
+|Type      |Required|Position|PipelineInput|
+|----------|--------|--------|-------------|
+|`[UInt64]`|false   |named   |false        |
+
+
+
 
 
 ---
@@ -184,5 +217,5 @@ This will add a YAML header to HTML metrics
 
 ### Syntax
 ```PowerShell
-Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [-BackgroundColor <String[]>] [-BorderColor <String[]>] [-Metadata <IDictionary>] [<CommonParameters>]
+Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [-BackgroundColor <String[]>] [-BorderColor <String[]>] [-Metadata <IDictionary>] [-IncludeTotalCount] [-Skip <UInt64>] [-First <UInt64>] [<CommonParameters>]
 ```
