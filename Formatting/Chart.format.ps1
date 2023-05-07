@@ -53,12 +53,10 @@ new Chart(ctx, {
     labels: $($chartLabels | ConvertTo-Json -Compress),
     datasets: [{
         label: '$ChartName',
-        data: $($chartData | ConvertTo-Json -Compress),
-        $(if ($chartInfo.BackgroundColor) {
-            "backgroundColor: $(ConvertTo-Json @($chartInfo.BackgroundColor))," + [Environment]::NewLine
-        })
-        $(if ($chartInfo.BorderColor) {
-            "borderColor: $(ConvertTo-Json @($chartInfo.BorderColor))," + [Environment]::NewLine
+        data: $($chartData | ConvertTo-Json -Compress),$(if ($chartInfo.BackgroundColor) {
+            "backgroundColor: $(ConvertTo-Json @($chartInfo.BackgroundColor))," + [Environment]::NewLine + (' ' * 8)
+        })$(if ($chartInfo.BorderColor) {
+            "borderColor: $(ConvertTo-Json @($chartInfo.BorderColor))," + [Environment]::NewLine + (' ' * 8)
         })
         borderWidth: 1
     }]
