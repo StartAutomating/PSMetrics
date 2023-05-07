@@ -164,7 +164,21 @@ function Out-Metric {
                 $metricOutput # output the data
             } else {
                 # otherwise, output the view
-                $ViewOutput
+                if ($ViewOutput -match '^\s{0,}\{' -and 
+                    $ViewOutput -match '\}\s{0,}$') {
+                    try {
+                        ConvertFrom-Json -InputObject $ViewOutput
+                    } catch {
+                        try {
+                            & ([scriptblock]::Create($ViewOutput))
+                        } catch {
+                            $ViewOutput        
+                        }
+                    }
+                } else {
+                    $ViewOutput
+                }
+                
             }            
         }
     }
