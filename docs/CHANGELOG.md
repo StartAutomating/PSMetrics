@@ -7,6 +7,7 @@
   * Runs Script Block Views (#23)
   * Defaults to PowerShell Universal in PowerShell Universal (#25 #24)
 * GitHub Page now available [https://psmetrics.start-automating.com](https://psmetrics.start-automating.com)
+* Fixing GitHub Action Name (#22)
 
 ---
 
