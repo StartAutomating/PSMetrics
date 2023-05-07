@@ -170,7 +170,11 @@ function Out-Metric {
                         ConvertFrom-Json -InputObject $ViewOutput
                     } catch {
                         try {
-                            & ([scriptblock]::Create($ViewOutput))
+                            & (
+                                [scriptblock]::Create(
+                                    $ViewOutput -replace '^\s{0,}\{' -replace '\}\s{0,}$'
+                                )
+                            )
                         } catch {
                             $ViewOutput        
                         }
