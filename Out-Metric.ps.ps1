@@ -13,7 +13,7 @@ function Out-Metric {
     .LINK
         Get-Metric
     #>
-    [CmdletBinding(PositionalBinding=$false)]
+    [CmdletBinding(PositionalBinding=$false,SupportsPaging)]
     param(
     # A Pipeline of InputObjects
     # This should be provided from the object pipeline.
@@ -124,6 +124,19 @@ function Out-Metric {
             } else {
                 if ($Intention -like '*Descending*' -or $Descending) {
                     [Array]::Reverse($metricOutput)
+                }
+
+                if ($PSBoundParameters['Skip']) {
+                    $metricOutput = $metricOutput[(0+$PSBoundParameters['Skip'])..($metricOutput.Length - 1)]
+                }
+
+                if ($PSBoundParameters['First']) {
+                    if ($PSBoundParameters['First'] -gt 0) {
+                        $metricOutput = $metricOutput[0..$($PSBoundParameters['First'] -1)]
+                    } else {
+                        $metricOutput = $metricOutput[$PSBoundParameters['First']]
+                    }
+                    
                 }
                 
                 [PSCustomObject][Ordered]@{
