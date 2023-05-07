@@ -1,0 +1,27 @@
+
+
+
+<div style='width:100%;height:100%;text-align:center;justify-content:center'>
+<div style='max-height:90%;display:flex;margin-left:auto;margin-right:auto;text-align:center;justify-content:center'>
+<canvas id="TypesByNamespace"></canvas>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+<script>
+const ctx = document.getElementById('TypesByNamespace');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+    labels: ["System.Management.Automation","System.Management.Automation.Language","Microsoft.PowerShell.Commands","System.Management.Automation.Runspaces","System.Management.Automation.Internal","System.Management.Automation.Remoting","System.Management.Automation.Host","System.Management.Automation.Provider","System.Management.Automation.Subsystem.Prediction","System.Management.Automation.Tracing","Microsoft.PowerShell","Microsoft.PowerShell.Cmdletization","System.Management.Automation.Subsystem","Microsoft.PowerShell.Commands.Internal.Format","System.Management.Automation.Remoting.WSMan","System.Management.Automation.Remoting.Internal","Microsoft.PowerShell.DesiredStateConfiguration.Internal","Microsoft.PowerShell.Cmdletization.Xml","System.Management.Automation.Subsystem.DSC","Microsoft.PowerShell.Cim","System.Management.Automation.Configuration","System.Management.Automation.PSTasks","Microsoft.PowerShell.DesiredStateConfiguration","Microsoft.PowerShell.Telemetry"],
+    datasets: [{
+        label: 'TypesByNamespace',
+        data: [378,131,87,79,18,18,17,14,9,6,6,6,5,4,2,2,2,2,1,1,1,1,1,1],
+        borderWidth: 1
+    }]
+    }
+});
+</script>
+
+
+
+

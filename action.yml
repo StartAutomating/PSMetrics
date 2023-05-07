@@ -1,5 +1,5 @@
 
-name: Metrics
+name: MeasureMetrics
 description: Measure Metrics and Create Charts with PSMetrics
 inputs: 
   PSMetricsScript: 
@@ -35,12 +35,12 @@ runs:
       id: PSMetricsAction
       shell: pwsh
       env: 
-        PSMetricsScript: ${{inputs.PSMetricsScript}}
         UserEmail: ${{inputs.UserEmail}}
-        InstallModule: ${{inputs.InstallModule}}
-        UserName: ${{inputs.UserName}}
-        SkipPSMetricsPS1: ${{inputs.SkipPSMetricsPS1}}
         CommitMessage: ${{inputs.CommitMessage}}
+        PSMetricsScript: ${{inputs.PSMetricsScript}}
+        InstallModule: ${{inputs.InstallModule}}
+        SkipPSMetricsPS1: ${{inputs.SkipPSMetricsPS1}}
+        UserName: ${{inputs.UserName}}
       run: |
         $Parameters = @{}
         $Parameters.PSMetricsScript = ${env:PSMetricsScript}

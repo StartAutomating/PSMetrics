@@ -25,3 +25,10 @@ $psMetricsFunctions | CommandsByVerb◔ -OutputPath (
 $psMetricsFunctions | CommandsByNoun◔ -OutputPath (
     Join-Path $docsRoot "PSMetrics-CommandsByNoun.html"
 )
+
+
+[PSObject].Assembly.GetTypes() | 
+    Where-Object IsPublic | 
+    TypesByNamespace📊 -OutputPath (
+        Join-Path $docsRoot "PowerShell-Types-By-Namespace.html"
+    )

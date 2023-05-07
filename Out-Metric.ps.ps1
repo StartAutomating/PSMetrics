@@ -13,7 +13,7 @@ function Out-Metric {
     .LINK
         Get-Metric
     #>
-    [CmdletBinding(PositionalBinding=$false)]
+    [CmdletBinding(PositionalBinding=$false,SupportsPaging)]
     param(
     # A Pipeline of InputObjects
     # This should be provided from the object pipeline.
@@ -42,6 +42,16 @@ function Out-Metric {
     # If provided, will render a chart of a particular type.
     [string]
     $ChartType,
+
+    # The background colors for the chart
+    [Alias('Color','BackgroundColors')]
+    [string[]]
+    $BackgroundColor,
+
+    # The border colors for the chart
+    [Alias('BorderColors')]
+    [string[]]
+    $BorderColor,
 
     # Any metadata related to the metric.
     # This will add a YAML header to HTML metrics
@@ -103,6 +113,10 @@ function Out-Metric {
         $formatParameters = @{}
         if ($view) {
             $formatParameters["View"] = $view
+        } else {
+            if ($PSUEnvironment) {
+                $formatParameters["View"] = $view = 'PowerShellUniversal'
+            }
         }
         $ViewOutput   =
             if ($Intention -eq 'Metric' -and -not $view -and -not $ChartType) {
@@ -111,24 +125,34 @@ function Out-Metric {
                 if ($Intention -like '*Descending*' -or $Descending) {
                     [Array]::Reverse($metricOutput)
                 }
+
+                if ($PSBoundParameters['Skip']) {
+                    $metricOutput = $metricOutput[(0+$PSBoundParameters['Skip'])..($metricOutput.Length - 1)]
+                }
+
+                if ($PSBoundParameters['First']) {
+                    $metricOutput = $metricOutput[0..$($PSBoundParameters['First'] -1)]
+                }
                 
                 [PSCustomObject][Ordered]@{
-                    PSTypeName     = 'Chart'
-                    ChartData      = $metricOutput
-                    ChartType      = if ($chartType) {
-                        $chartType
-                    } elseif ($Intention -match 'Line') {
-                        'line'
-                    } elseif ($Intention -match 'Bar') {
-                        'bar'
-                    } elseif ($Intention -match 'Pie') {
-                        'pie'
-                    } else {
-                        ''
-                    }
-                    MetricCommand  = $MetricCommand
-                    MetricName     = $MetricCommand.MetricName
-                    Metadata       = $Metadata
+                    PSTypeName      = 'Chart'
+                    ChartData       = $metricOutput
+                    ChartType       =   if ($chartType) {
+                                            $chartType
+                                        } elseif ($Intention -match 'Line') {
+                                            'line'
+                                        } elseif ($Intention -match 'Bar') {
+                                            'bar'
+                                        } elseif ($Intention -match 'Pie') {
+                                            'pie'
+                                        } else {
+                                            ''
+                                        }
+                    MetricCommand   = $MetricCommand
+                    MetricName      = $MetricCommand.MetricName
+                    BackgroundColor = $BackgroundColor
+                    BorderColor     = $BorderColor
+                    Metadata        = $Metadata
                 } |
                 Format-Custom @formatParameters |
                 Out-String -Width 1mb
@@ -164,7 +188,25 @@ function Out-Metric {
                 $metricOutput # output the data
             } else {
                 # otherwise, output the view
-                $ViewOutput
+                if ($ViewOutput -match '^\s{0,}\{' -and 
+                    $ViewOutput -match '\}\s{0,}$') {
+                    try {
+                        ConvertFrom-Json -InputObject $ViewOutput
+                    } catch {
+                        try {
+                            & (
+                                [scriptblock]::Create(
+                                    $ViewOutput -replace '^\s{0,}\{' -replace '\}\s{0,}$'
+                                )
+                            )
+                        } catch {
+                            $ViewOutput
+                        }
+                    }
+                } else {
+                    $ViewOutput
+                }
+                
             }            
         }
     }

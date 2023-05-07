@@ -50,10 +50,14 @@ const ctx = document.getElementById('$chartHTMLID');
 new Chart(ctx, {
     type: '$chartType',
     data: {
-    labels: $($chartLabels | ConvertTo-Json -Compress),
+    labels: $(ConvertTo-Json -Compress -InputObject @($chartLabels)),
     datasets: [{
         label: '$ChartName',
-        data: $($chartData | ConvertTo-Json -Compress),
+        data: $(ConvertTo-Json -Compress -InputObject $chartData),$(if ($chartInfo.BackgroundColor) {
+            "backgroundColor: $(ConvertTo-Json @($chartInfo.BackgroundColor))," + [Environment]::NewLine + (' ' * 8)
+        })$(if ($chartInfo.BorderColor) {
+            "borderColor: $(ConvertTo-Json @($chartInfo.BorderColor))," + [Environment]::NewLine + (' ' * 8)
+        })
         borderWidth: 1
     }]
     }
@@ -79,7 +83,12 @@ Write-FormatView -TypeName Chart -Name PowerShellUniversal -Action {
         'bar'
     }
 
-    "New-UDChartJS -Data (
+    "{New-UDChartJS -Data (
         ConvertFrom-JSON '$((ConvertTo-Json -Compress -InputObject $chartInfo.ChartData) -replace "'","''")'
-    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'"
+    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'$(
+if ($chartInfo.BackgroundColor) { "-BackgroundColor '$($chartInfo.BackgroundColor -join "','")'"}
+)
+$(
+if ($chartInfo.BorderColor) { "-BackgroundColor '$($chartInfo.BorderColor -join "','")'"}
+)}"
 }
