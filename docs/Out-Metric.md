@@ -131,6 +131,36 @@ If provided, will render a chart of a particular type.
 
 
 
+#### **BackgroundColor**
+
+The background colors for the chart
+
+
+
+
+
+
+|Type        |Required|Position|PipelineInput|Aliases                   |
+|------------|--------|--------|-------------|--------------------------|
+|`[String[]]`|false   |named   |false        |Color<br/>BackgroundColors|
+
+
+
+#### **BorderColor**
+
+The border colors for the chart
+
+
+
+
+
+
+|Type        |Required|Position|PipelineInput|Aliases     |
+|------------|--------|--------|-------------|------------|
+|`[String[]]`|false   |named   |false        |BorderColors|
+
+
+
 #### **Metadata**
 
 Any metadata related to the metric.
@@ -154,5 +184,5 @@ This will add a YAML header to HTML metrics
 
 ### Syntax
 ```PowerShell
-Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [-Metadata <IDictionary>] [<CommonParameters>]
+Out-Metric [-InputObject <Object>] [-OutputPath <String>] [-Arguments <Object>] [-View <String>] [-Descending] [-ChartType <String>] [-BackgroundColor <String[]>] [-BorderColor <String[]>] [-Metadata <IDictionary>] [<CommonParameters>]
 ```
