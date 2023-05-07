@@ -1,3 +1,15 @@
+## PSMetrics 0.1.1
+
+* New Metric : Types By Namespace (#26)
+* Out-Metric
+  * Now supports paging (#27)
+  * Now supports -BackgroundColor/-BorderColor (#20)
+  * Runs Script Block Views (#23)
+  * Defaults to PowerShell Universal in PowerShell Universal (#25 #24)
+* GitHub Page now available [https://psmetrics.start-automating.com](https://psmetrics.start-automating.com)
+
+---
+
 ## PSMetrics 0.1
 
 * Initial Release of PSMetrics (#1 #2 #7 #8)
