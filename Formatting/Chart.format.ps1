@@ -79,7 +79,7 @@ Write-FormatView -TypeName Chart -Name PowerShellUniversal -Action {
         'bar'
     }
 
-    "New-UDChartJS -Data (
+    "{New-UDChartJS -Data (
         ConvertFrom-JSON '$((ConvertTo-Json -Compress -InputObject $chartInfo.ChartData) -replace "'","''")'
-    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'"
+    ) -Type $chartType -Id $chartHTMLID -DataProperty '$($secondProp.Name)' -LabelProperty '$($firstProp.Name)'}"
 }
