@@ -103,6 +103,10 @@ function Out-Metric {
         $formatParameters = @{}
         if ($view) {
             $formatParameters["View"] = $view
+        } else {
+            if ($PSUEnvironment) {
+                $formatParameters["View"] = $view = 'PowerShellUniversal'
+            }
         }
         $ViewOutput   =
             if ($Intention -eq 'Metric' -and -not $view -and -not $ChartType) {
@@ -176,7 +180,7 @@ function Out-Metric {
                                 )
                             )
                         } catch {
-                            $ViewOutput        
+                            $ViewOutput
                         }
                     }
                 } else {
